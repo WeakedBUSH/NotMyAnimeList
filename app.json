@@ -1,15 +1,16 @@
 {
   "expo": {
     "name": "NotMyAnimeList",
-    "slug": "NotMyAnimeList",
+    "slug": "NMAL",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/medias/icon.png",
+    "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/medias/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#FFFFFF"
+      
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -22,12 +23,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/medias/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/medias/favicon.png"
     }
   }
 }
