@@ -5,9 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
-
 const Tab = createBottomTabNavigator();
 export default function App() {
   // const colorScheme = useColorScheme();
@@ -58,8 +56,10 @@ export default function App() {
   return (
 <NavigationContainer  onLayoutRootView={onLayoutRootView}>
       <Tab.Navigator initialRouteName='HomeScreen'  screenOptions={{ headerShown: false }}  >
+      
         <Tab.Screen name="Home" component={HomeScreen} options={{tabBarIcon: (tabInfo) => {return (<Ionicons name="home-sharp"size={24} color={tabInfo.focused ? "#00ADB5" : "#8e8e93"}/>); },}} />
         <Tab.Screen name="Favorite" component={FavoriteScreen} options={{ tabBarIcon:  (tabInfo) => {return (<Ionicons name="heart-circle"size={24} color={tabInfo.focused ? "#00ADB5" : "#8e8e93"}/>); },}} />
+
       </Tab.Navigator>
     </NavigationContainer>  
     );

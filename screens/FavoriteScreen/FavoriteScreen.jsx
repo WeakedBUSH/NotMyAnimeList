@@ -4,14 +4,13 @@ import { SafeAreaView } from 'react-navigation';
 import { useNavigation } from '@react-navigation/native';
 
 const FavoriteScreen = () => {
-    const s = require ("../../style");
     const navigation = useNavigation();
     const [isFavorite] = useState(true);
 
     return (
-        <SafeAreaView style={s.container}>
+        <SafeAreaView >
             <View>
-                <Text style={s.title}>
+                <Text>
                     Favorites
                 </Text>
                 {isFavorite ? <Text>Aucun favoris ajoutez en !</Text> :  (<FlatList data={anime} renderItem={renderItem} keyExtractor={(item) => item.id} />)
