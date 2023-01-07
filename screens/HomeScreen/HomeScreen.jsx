@@ -96,37 +96,37 @@ const HomeScreen = () => {
     const renderItem = (item) => (
         // ajouter component card 
         <TouchableOpacity onPress={() => navigation.navigate('Details',{item})}>
-        <View style={tw`w-[150px] h-auto items-center m-5`}>
-        <Image style={tw`rounded-3xl w-[150px] h-[250px]`} source={{ uri: `${item.coverImage.extraLarge}` }}/>
-        <Text style={tw`text-sm font-medium text-white`}>{item.title.english}</Text>  
-        <Text style={tw`text-xs text-gray-500`}>{item.title.native}</Text> 
-        <Text style={tw`text-xs text-gray-500`}>{item.seasonYear} - Episodes : {item.episodes}</Text> 
+        <View className="w-[150px] h-auto items-center m-5">
+        <Image className="rounded-3xl w-[150px] h-[250px]" source={{ uri: `${item.coverImage.extraLarge}` }}/>
+        <Text className="text-sm font-medium text-white">{item.title.english}</Text>  
+        <Text className="text-xs text-gray-500">{item.title.native}</Text> 
+        <Text className="text-xs text-gray-500">{item.seasonYear} - Episodes : {item.episodes}</Text> 
         </View>
         </TouchableOpacity>)
     const navigation = useNavigation();
 
     function ListScreen({}){
       return (
-        <SafeAreaView style={tw` m-4`}>
-            <View style={tw`w-screen mt-12 mb-2 items-center`}>
-              <Text style={tw`text-3xl font-bold tracking-widest text-center w-6/12`}>
+        <SafeAreaView className="m-4">
+            <View className="w-screen mt-12 mb-2 items-center">
+              <Text className="text-3xl font-bold tracking-widest text-center w-6/12">
                 NMAL
               </Text>
             </View>
-            <View style={tw`w-screen flex mt-8 mb-4`}>
-              <Text style={tw`text-xl self-start w-6/12`}>
+            <View className="w-screen flex mt-8 mb-4 ">
+              <Text className="text-xl font-bold self-start w-6/12">
                 Populaire
               </Text>
             </View>
-            <FlatList style={tw`flex`}
+            <FlatList className="flex"
           horizontal
           keyExtractor={(item, index) => {return item.id;}}          
           data={data}
           renderItem={({item}) => renderItem(item)}
           />
-          <View style={tw`w-screen flex mt-2 mb-4`}>
-              <Text style={tw`text-xl self-start w-6/12`}>
-                En cours
+          <View className="w-screen flex mt-2 mb-4">
+              <Text className="text-xl self-start w-6/12">
+                Cette saison
               </Text>
             </View>
         </SafeAreaView>
@@ -136,17 +136,17 @@ const HomeScreen = () => {
     function Details({ route }) {
       const { item } = route.params;
       return (
-        <SafeAreaView style={tw``}>
-        <View style={tw`w-screen h-screen mr-10 relative`}>
-        <Image style={tw`absolute w-screen h-2/4 `} source={{ uri: `${item.coverImage.extraLarge}` }}/>
-        <View style={tw`absolute  h-2/4 w-screen `}></View>
+        <SafeAreaView>
+        <View className="w-screen h-screen mr-10 relative">
+        <Image className="absolute w-screen h-2/4 " source={{ uri: `${item.coverImage.extraLarge}` }}/>
+        <View className=" absolute  h-2/4 w-screen "></View>
         </View>
         </SafeAreaView>
       );
     }
 return (
     <Stack.Navigator>
-      <Stack.Screen name="List" component={ListScreen} />
+      <Stack.Screen name="List" component={ListScreen} options={{headerShown: false}} />
       <Stack.Screen name="Details" component={Details} />
     </Stack.Navigator>
   );
