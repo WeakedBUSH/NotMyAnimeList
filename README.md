@@ -14,4 +14,4 @@ React-native anime list app with Anilist API [GraphQL]
 
 - Launch the app 
 
-###`expo start`
+### `expo start`
