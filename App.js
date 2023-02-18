@@ -8,15 +8,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 const Tab = createBottomTabNavigator();
 export default function App() {
-  // const colorScheme = useColorScheme();
+
   const [appIsReady, setAppIsReady] = useState(false);
-  const MyTheme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      background:'#F9FAFB'
-    },
-  };
+
+  
+
   useEffect(() => {
     async function prepare() {
       try {
@@ -60,13 +56,15 @@ export default function App() {
   setTimeout(SplashScreen.hideAsync, 2000);
 
   return (
-<NavigationContainer  theme={MyTheme} onLayoutRootView={onLayoutRootView}>
+<NavigationContainer  onLayoutRootView={onLayoutRootView}>
+  
       <Tab.Navigator initialRouteName='HomeScreen'  screenOptions={{ headerShown: false }}  >
       
         <Tab.Screen name="Home" component={HomeScreen} options={{tabBarIcon: (tabInfo) => {return (<Ionicons name="home-sharp"size={24} color={tabInfo.focused ? "#00ADB5" : "#8e8e93"}/>); },}} />
         <Tab.Screen name="Favorite" component={FavoriteScreen} options={{ tabBarIcon:  (tabInfo) => {return (<Ionicons name="heart-circle"size={24} color={tabInfo.focused ? "#00ADB5" : "#8e8e93"}/>); },}} />
 
       </Tab.Navigator>
+
     </NavigationContainer>  
     );
 }

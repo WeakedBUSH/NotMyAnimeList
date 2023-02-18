@@ -1,13 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Button, Text,FlatList, View, StyleSheet, TouchableOpacity } from 'react-native';
-import { SafeAreaView, } from 'react-navigation';
+import React, { useCallback, useEffect, useState, Component } from 'react';
+import { Button, Text,FlatList, View, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { SafeAreaView,ScrollView } from 'react-navigation';
 import {Image} from 'react-native' ; 
+import Icon from 'react-native-vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Profile from '../../components/ProfileComponent';
+
 const HomeScreen = () => {
-    const [isLoading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([]);  
     const Stack = createNativeStackNavigator();
     const api = {
       async getPopularAnime (){
@@ -26,6 +28,7 @@ const HomeScreen = () => {
                 status
                 episodes
                 favourites
+                description (asHtml : false)
                 title {
                   romaji
                   english
@@ -64,11 +67,13 @@ const HomeScreen = () => {
             }
           }
           `
+
+          
               
               // Define our query variables and values that will be used in the query request
               var variables = {
               page : 1,
-              perPage: 5,
+              perPage: 10,
               };
               
               
@@ -113,12 +118,13 @@ const HomeScreen = () => {
               console.error(error);
               }
       }
-  
-    }
+      
+      }
        useEffect(() => {
         api.getPopularAnime();
-      }, []);
-    const renderItem = (item) => (
+        }, []);
+    
+      const renderItem = (item) => (
         // ajouter component card 
         <TouchableOpacity onPress={() => navigation.navigate('Details',{item})}>
         <View className="w-[150px] h-auto items-center m-5">
@@ -127,17 +133,22 @@ const HomeScreen = () => {
         <Text className="text-xs text-gray-500">{item.title.native}</Text> 
         <Text className="text-xs text-gray-500">{item.seasonYear} - Episodes : {item.episodes}</Text> 
         </View>
-        </TouchableOpacity>)
+        
+        </TouchableOpacity>
+        )
+
     const navigation = useNavigation();
 
+
+//Page Anime List
     function ListScreen({}){
       return (
         <SafeAreaView>
-            <View className="mt-12 mb-2 items-center">
-              <Text className="text-3xl font-bold tracking-widest text-center w-6/12">
-                NMAL
-              </Text>
+
+            <View className="mt-12 mb-2 items-end">
+              
             </View>
+            
             <View className="flex flex-row justify-between mt-8 mb-4 ml-6 mr-4 ">
            <Text className="text-lg font-bold">
                 Populaire
@@ -146,38 +157,65 @@ const HomeScreen = () => {
                 voir plus  
               </Text>   
             </View>
-            <FlatList className="flex"
-            showsHorizontalScrollIndicator={false}
-          horizontal
-          keyExtractor={(item, index) => {return item.id;}}          
-          data={data}
-          renderItem={({item}) => renderItem(item)}
-          />
+          
+            <FlatList className="flex" 
+          showsHorizontalScrollIndicator={false} 
+          horizontal keyExtractor={(item, index) => {return item.id;}} data={data}
+          renderItem={({item}) => renderItem(item)} />
+           
            <View className="flex flex-row text-center justify-between mt-2 mb-4 ml-6 mr-4 ">
+
            <Text className="text-lg font-bold">
                 En ce moment
               </Text>
               <Text className="text-lg font-light">
-                voir plus  
-              </Text>   
+                voir plus
+              </Text>  
             </View>
+            <FlatList className="flex" showsHorizontalScrollIndicator={false} horizontal keyExtractor={(item, index) => {return item.id;}} data={data}
+          renderItem={({item}) => renderItem(item)} />
+        </SafeAreaView>
+      );
+
+    }
+
+// Page de Details
+    function Details({ route }) {
+      const { item } = route.params;
+    
+      return (
+        <SafeAreaView>
+
+
+
+          <Image className="h-[250px]" source={{ uri: `${item.coverImage.extraLarge}` }}/> 
+          <LinearGradient  style={styles.background} colors={[ 'transparent', 'rgba(255,255,255,1)']} start={{x:0.5, y:0.5}} end={{x:0.5, y:1}} />
+     
+        <View className="item-center m-5">
+       
+        <Text className="text-2xl font-ligh">{item.title.english}</Text>
+        <Text className="text-lg italic font-normal text-gray-400">{item.title.romaji} (original)</Text>
+        <Text className="">Episodes : {item.episodes}</Text>
+        <Text className="">{item.seasonYear}</Text>
+        <Text className="text-xl font-medium mt-2 mb-2">Synopsis</Text>
+        <Text className="text-justify font-normal">{item.description}</Text>
+
+        <Text className="text-2xl font-medium tracking-widest text-center">
+                Personnages
+              </Text>
+
+             
+              </View>
+
         </SafeAreaView>
       );
     }
 
-    function Details({ route }) {
-      const { item } = route.params;
-      return (
-        <SafeAreaView className="relative">
-          <Image style={styles.images} source={{ uri: `${item.coverImage.extraLarge}` }}/> 
-       <LinearGradient  style={styles.background} colors={[ 'transparent', 'rgba(255,255,255,1)']} start={{x:0.5, y:0.5}} end={{x:0.5, y:1}} />
-        </SafeAreaView>
-      );
-    }
+
 return (
     <Stack.Navigator>
       <Stack.Screen name="List" component={ListScreen} options={{headerShown: false, cardStyle: { backgroundColor: "transparent" }}} />
-      <Stack.Screen name="Details" component={Details} options={{ headerTransparent: true, title: ''}} />
+      <Stack.Screen name="Details" component={Details}  options={{ headerTransparent: true, title: ''}} />
     </Stack.Navigator>
   );
    
@@ -188,15 +226,12 @@ return (
 const styles = StyleSheet.create({
   background: {
     position: 'absolute',
-    top: 200,
+    top: 100,
     left: 0,
     right: 0,
     bottom: 0,
-    height: 200
+    height: 150
   },
-  images : {
-    height: 400,
-
-  }
 });
+
 export default HomeScreen
