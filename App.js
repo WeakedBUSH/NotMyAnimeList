@@ -10,9 +10,8 @@ const Tab = createBottomTabNavigator();
 
 
 export default function App() {
-
+  
   const [appIsReady, setAppIsReady] = useState(false);
-
   
 
   useEffect(() => {
@@ -62,10 +61,7 @@ export default function App() {
   <NavigationContainer  onLayoutRootView={onLayoutRootView}>
   
       <Tab.Navigator initialRouteName='HomeScreen'  screenOptions={{ headerShown: false }}  >
-      
-        <Tab.Screen name="Home" component={HomeScreen} options={{tabBarIcon: (tabInfo) => {return (<Ionicons name="home-sharp"size={24} color={tabInfo.focused ? "#00ADB5" : "#8e8e93"}/>); },}} />
-        <Tab.Screen name="Favorite" component={FavoriteScreen} options={{ tabBarIcon:  (tabInfo) => {return (<Ionicons name="heart-circle"size={24} color={tabInfo.focused ? "#00ADB5" : "#8e8e93"}/>); },}} />
-
+      <Tab.Screen name="Home" component={HomeScreen} options={{tabBarIcon: (tabInfo) => {return (<Ionicons name="home-sharp"size={24} color={tabInfo.focused ? "#00ADB5" : "#8e8e93"}/>); }, tabBarHideOnKeyboard: true,  }} />
       </Tab.Navigator>
 
     </NavigationContainer>  

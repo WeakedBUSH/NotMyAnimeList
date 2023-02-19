@@ -9,16 +9,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SearchBar from '../../components/SearchBar';
 import { getPopularAnime } from '../../api/api';
 import { Ionicons } from '@expo/vector-icons';
-
+import FavoriteScreen from '../FavoriteScreen/FavoriteScreen';
 
 const HomeScreen = () => {
     const [data, setData] = useState([]);  
     const [favorites, setFavorites] = useState({});
-
     const [filteredData, setFilteredData] = useState([]);
     const [searchText, setSearchText] = useState('');
-    
+   
     const Stack = createNativeStackNavigator();
+
     const loadFavorites = useCallback(async () => {
       try {
           const storedFavorites = await AsyncStorage.getItem('favorites');
@@ -42,7 +42,7 @@ const HomeScreen = () => {
           });
           setFilteredData(filtered);
         }
-        }, [searchText, loadFavorites]);
+        }, [searchText, loadFavorites, ]);
 
         const toggleFavorite = async (id) => {
           try {
@@ -60,6 +60,7 @@ const HomeScreen = () => {
         };
 
       const renderItem = (item) => (
+
         <TouchableOpacity onPress={() => navigation.navigate('Details',{item})}>
         <View className="w-[150px] h-auto items-center m-5">
         <TouchableOpacity onPress={() => toggleFavorite(item.id)} className="bg-black opacity-75 absolute z-20 w-[auto] h-[auto] p-1 m-2 rounded-lg  ">
@@ -71,6 +72,7 @@ const HomeScreen = () => {
         <Text className="text-xs text-gray-500">{item.seasonYear} - Episodes : {item.episodes}</Text> 
         </View>
         </TouchableOpacity>
+
         )
 
     const navigation = useNavigation();
@@ -81,7 +83,6 @@ const HomeScreen = () => {
       return (
       <SafeAreaView>
           <View className="mt-10 items-center">
-
           <SearchBar
           data={data}
           renderItem={(item) => renderItem(item)}
@@ -89,9 +90,10 @@ const HomeScreen = () => {
 
           </View>
 
+
           <View className="mt-8 mb-4 ml-6 mr-4 items-center ">
 
-          <Text className="text-lg font-bold">
+          <Text className="text-2xl font-bold">
                 Populaire
           </Text>
 
@@ -137,10 +139,13 @@ const HomeScreen = () => {
     }
 
 
+
+
 return (
     <Stack.Navigator>
       <Stack.Screen name="List" component={ListScreen} options={{headerShown: false, cardStyle: { backgroundColor: "transparent" }}} />
       <Stack.Screen name="Details" component={Details}  options={{ headerTransparent: true, title: ''}} />
+      <Stack.Screen name="Favorites" component={FavoriteScreen} options={{ headerTransparent: true, title: ''}} />
     </Stack.Navigator>
   );
    
