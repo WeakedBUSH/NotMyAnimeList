@@ -1,17 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState,  } from 'react';
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import FavoriteScreen from "./screens/FavoriteScreen/FavoriteScreen";
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
-
 const Tab = createBottomTabNavigator();
+
+
 export default function App() {
-  // const colorScheme = useColorScheme();
+  
   const [appIsReady, setAppIsReady] = useState(false);
+  
 
   useEffect(() => {
     async function prepare() {
@@ -56,12 +57,15 @@ export default function App() {
   setTimeout(SplashScreen.hideAsync, 2000);
 
   return (
-<NavigationContainer  onLayoutRootView={onLayoutRootView}>
+
+  <NavigationContainer  onLayoutRootView={onLayoutRootView}>
+  
       <Tab.Navigator initialRouteName='HomeScreen'  screenOptions={{ headerShown: false }}  >
-        <Tab.Screen name="Home" component={HomeScreen} options={{tabBarIcon: (tabInfo) => {return (<Ionicons name="home-sharp"size={24} color={tabInfo.focused ? "#00ADB5" : "#8e8e93"}/>); },}} />
-        <Tab.Screen name="Favorite" component={FavoriteScreen} options={{ tabBarIcon:  (tabInfo) => {return (<Ionicons name="heart-circle"size={24} color={tabInfo.focused ? "#00ADB5" : "#8e8e93"}/>); },}} />
+      <Tab.Screen name="Home" component={HomeScreen} options={{tabBarIcon: (tabInfo) => {return (<Ionicons name="home-sharp"size={24} color={tabInfo.focused ? "#00ADB5" : "#8e8e93"}/>); }, tabBarHideOnKeyboard: true,  }} />
       </Tab.Navigator>
+
     </NavigationContainer>  
+
     );
 }
 
