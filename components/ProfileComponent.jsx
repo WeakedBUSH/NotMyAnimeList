@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {ImageViewer, View, TouchableOpacity, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
-export default function Profile() {
+const Profile = () => {
   
   const [selectedImage, setSelectedImage] = useState(null);
   const DefaultAvatarImg = require("../assets/medias/avatar/defaultavatar.png")
@@ -29,6 +29,7 @@ export default function Profile() {
             />
 
             </View>
+
             </TouchableOpacity>
         
   );
@@ -42,3 +43,5 @@ const ProfileStyles=StyleSheet.create({
     backgroundColor: 'gray',
   }
 })
+
+export default Profile;

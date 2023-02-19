@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState,  } from 'react';
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import FavoriteScreen from "./screens/FavoriteScreen/FavoriteScreen";
 import * as SplashScreen from 'expo-splash-screen';
@@ -7,6 +7,8 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 const Tab = createBottomTabNavigator();
+
+
 export default function App() {
 
   const [appIsReady, setAppIsReady] = useState(false);
@@ -56,7 +58,8 @@ export default function App() {
   setTimeout(SplashScreen.hideAsync, 2000);
 
   return (
-<NavigationContainer  onLayoutRootView={onLayoutRootView}>
+
+  <NavigationContainer  onLayoutRootView={onLayoutRootView}>
   
       <Tab.Navigator initialRouteName='HomeScreen'  screenOptions={{ headerShown: false }}  >
       
@@ -66,6 +69,7 @@ export default function App() {
       </Tab.Navigator>
 
     </NavigationContainer>  
+
     );
 }
 
